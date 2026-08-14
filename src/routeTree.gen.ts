@@ -14,6 +14,7 @@ import { Route as DailyRouteImport } from './routes/daily'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as MentorRouteImport } from './routes/mentor'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as ProtocolRouteImport } from './routes/protocol'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +41,11 @@ const OnboardingRoute = OnboardingRouteImport.update({
   path: '/onboarding',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProtocolRoute = ProtocolRouteImport.update({
+  id: '/protocol',
+  path: '/protocol',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/mentor': typeof MentorRoute
   '/onboarding': typeof OnboardingRoute
+  '/protocol': typeof ProtocolRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/mentor': typeof MentorRoute
   '/onboarding': typeof OnboardingRoute
+  '/protocol': typeof ProtocolRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,22 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/mentor': typeof MentorRoute
   '/onboarding': typeof OnboardingRoute
+  '/protocol': typeof ProtocolRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/daily' | '/dashboard' | '/mentor' | '/onboarding'
+  fullPaths:
+    '/' | '/daily' | '/dashboard' | '/mentor' | '/onboarding' | '/protocol'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/daily' | '/dashboard' | '/mentor' | '/onboarding'
-  id: '__root__' | '/' | '/daily' | '/dashboard' | '/mentor' | '/onboarding'
+  to: '/' | '/daily' | '/dashboard' | '/mentor' | '/onboarding' | '/protocol'
+  id:
+    | '__root__'
+    | '/'
+    | '/daily'
+    | '/dashboard'
+    | '/mentor'
+    | '/onboarding'
+    | '/protocol'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +94,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   MentorRoute: typeof MentorRoute
   OnboardingRoute: typeof OnboardingRoute
+  ProtocolRoute: typeof ProtocolRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +134,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OnboardingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/protocol': {
+      id: '/protocol'
+      path: '/protocol'
+      fullPath: '/protocol'
+      preLoaderRoute: typeof ProtocolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +150,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   MentorRoute: MentorRoute,
   OnboardingRoute: OnboardingRoute,
+  ProtocolRoute: ProtocolRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
