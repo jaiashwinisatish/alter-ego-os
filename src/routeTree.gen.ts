@@ -14,6 +14,7 @@ import { Route as CharacterRouteImport } from './routes/character'
 import { Route as DailyRouteImport } from './routes/daily'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as KnowledgeRouteImport } from './routes/knowledge'
+import { Route as LegacyRouteImport } from './routes/legacy'
 import { Route as MentorRouteImport } from './routes/mentor'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as ProtocolRouteImport } from './routes/protocol'
@@ -43,6 +44,11 @@ const KnowledgeRoute = KnowledgeRouteImport.update({
   path: '/knowledge',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LegacyRoute = LegacyRouteImport.update({
+  id: '/legacy',
+  path: '/legacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MentorRoute = MentorRouteImport.update({
   id: '/mentor',
   path: '/mentor',
@@ -65,6 +71,7 @@ export interface FileRoutesByFullPath {
   '/daily': typeof DailyRoute
   '/dashboard': typeof DashboardRoute
   '/knowledge': typeof KnowledgeRoute
+  '/legacy': typeof LegacyRoute
   '/mentor': typeof MentorRoute
   '/onboarding': typeof OnboardingRoute
   '/protocol': typeof ProtocolRoute
@@ -75,6 +82,7 @@ export interface FileRoutesByTo {
   '/daily': typeof DailyRoute
   '/dashboard': typeof DashboardRoute
   '/knowledge': typeof KnowledgeRoute
+  '/legacy': typeof LegacyRoute
   '/mentor': typeof MentorRoute
   '/onboarding': typeof OnboardingRoute
   '/protocol': typeof ProtocolRoute
@@ -86,6 +94,7 @@ export interface FileRoutesById {
   '/daily': typeof DailyRoute
   '/dashboard': typeof DashboardRoute
   '/knowledge': typeof KnowledgeRoute
+  '/legacy': typeof LegacyRoute
   '/mentor': typeof MentorRoute
   '/onboarding': typeof OnboardingRoute
   '/protocol': typeof ProtocolRoute
@@ -98,6 +107,7 @@ export interface FileRouteTypes {
     | '/daily'
     | '/dashboard'
     | '/knowledge'
+    | '/legacy'
     | '/mentor'
     | '/onboarding'
     | '/protocol'
@@ -108,6 +118,7 @@ export interface FileRouteTypes {
     | '/daily'
     | '/dashboard'
     | '/knowledge'
+    | '/legacy'
     | '/mentor'
     | '/onboarding'
     | '/protocol'
@@ -118,6 +129,7 @@ export interface FileRouteTypes {
     | '/daily'
     | '/dashboard'
     | '/knowledge'
+    | '/legacy'
     | '/mentor'
     | '/onboarding'
     | '/protocol'
@@ -129,6 +141,7 @@ export interface RootRouteChildren {
   DailyRoute: typeof DailyRoute
   DashboardRoute: typeof DashboardRoute
   KnowledgeRoute: typeof KnowledgeRoute
+  LegacyRoute: typeof LegacyRoute
   MentorRoute: typeof MentorRoute
   OnboardingRoute: typeof OnboardingRoute
   ProtocolRoute: typeof ProtocolRoute
@@ -171,6 +184,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KnowledgeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/legacy': {
+      id: '/legacy'
+      path: '/legacy'
+      fullPath: '/legacy'
+      preLoaderRoute: typeof LegacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mentor': {
       id: '/mentor'
       path: '/mentor'
@@ -201,6 +221,7 @@ const rootRouteChildren: RootRouteChildren = {
   DailyRoute: DailyRoute,
   DashboardRoute: DashboardRoute,
   KnowledgeRoute: KnowledgeRoute,
+  LegacyRoute: LegacyRoute,
   MentorRoute: MentorRoute,
   OnboardingRoute: OnboardingRoute,
   ProtocolRoute: ProtocolRoute,
