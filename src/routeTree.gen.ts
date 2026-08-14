@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CharacterRouteImport } from './routes/character'
 import { Route as DailyRouteImport } from './routes/daily'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as KnowledgeRouteImport } from './routes/knowledge'
 import { Route as MentorRouteImport } from './routes/mentor'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as ProtocolRouteImport } from './routes/protocol'
@@ -37,6 +38,11 @@ const DashboardRoute = DashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KnowledgeRoute = KnowledgeRouteImport.update({
+  id: '/knowledge',
+  path: '/knowledge',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MentorRoute = MentorRouteImport.update({
   id: '/mentor',
   path: '/mentor',
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/character': typeof CharacterRoute
   '/daily': typeof DailyRoute
   '/dashboard': typeof DashboardRoute
+  '/knowledge': typeof KnowledgeRoute
   '/mentor': typeof MentorRoute
   '/onboarding': typeof OnboardingRoute
   '/protocol': typeof ProtocolRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/character': typeof CharacterRoute
   '/daily': typeof DailyRoute
   '/dashboard': typeof DashboardRoute
+  '/knowledge': typeof KnowledgeRoute
   '/mentor': typeof MentorRoute
   '/onboarding': typeof OnboardingRoute
   '/protocol': typeof ProtocolRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/character': typeof CharacterRoute
   '/daily': typeof DailyRoute
   '/dashboard': typeof DashboardRoute
+  '/knowledge': typeof KnowledgeRoute
   '/mentor': typeof MentorRoute
   '/onboarding': typeof OnboardingRoute
   '/protocol': typeof ProtocolRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | '/character'
     | '/daily'
     | '/dashboard'
+    | '/knowledge'
     | '/mentor'
     | '/onboarding'
     | '/protocol'
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/character'
     | '/daily'
     | '/dashboard'
+    | '/knowledge'
     | '/mentor'
     | '/onboarding'
     | '/protocol'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/character'
     | '/daily'
     | '/dashboard'
+    | '/knowledge'
     | '/mentor'
     | '/onboarding'
     | '/protocol'
@@ -116,6 +128,7 @@ export interface RootRouteChildren {
   CharacterRoute: typeof CharacterRoute
   DailyRoute: typeof DailyRoute
   DashboardRoute: typeof DashboardRoute
+  KnowledgeRoute: typeof KnowledgeRoute
   MentorRoute: typeof MentorRoute
   OnboardingRoute: typeof OnboardingRoute
   ProtocolRoute: typeof ProtocolRoute
@@ -151,6 +164,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/knowledge': {
+      id: '/knowledge'
+      path: '/knowledge'
+      fullPath: '/knowledge'
+      preLoaderRoute: typeof KnowledgeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mentor': {
       id: '/mentor'
       path: '/mentor'
@@ -180,6 +200,7 @@ const rootRouteChildren: RootRouteChildren = {
   CharacterRoute: CharacterRoute,
   DailyRoute: DailyRoute,
   DashboardRoute: DashboardRoute,
+  KnowledgeRoute: KnowledgeRoute,
   MentorRoute: MentorRoute,
   OnboardingRoute: OnboardingRoute,
   ProtocolRoute: ProtocolRoute,
