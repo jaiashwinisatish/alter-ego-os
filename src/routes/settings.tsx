@@ -94,18 +94,18 @@ function SettingsPage() {
               <p className="label-eyebrow">Privacy & data</p>
             </div>
             <div className="mt-5 space-y-4">
-              {[
+              {([
                 ["mentorNudges", "Mentor nudges", "Let the mentor message you when a streak is at risk."],
                 ["analyticsOptIn", "Usage analytics", "Anonymous product analytics to improve the protocol engine."],
                 ["weeklyDigest", "Weekly digest", "A Sunday summary of adherence, streaks and sprint pace."],
-              ].map(([key, label, desc]) => (
+              ] as const).map(([key, label, desc]) => (
                 <div key={key} className="flex items-start justify-between gap-4">
                   <div>
                     <p className="text-sm font-medium">{label}</p>
                     <p className="text-xs text-muted-foreground">{desc}</p>
                   </div>
                   <Switch
-                    checked={settings[key as "mentorNudges"]}
+                    checked={settings[key]}
                     onCheckedChange={(v) => {
                       updateSettings({ [key]: v });
                       toast.success(`${label} ${v ? "enabled" : "disabled"}.`);
