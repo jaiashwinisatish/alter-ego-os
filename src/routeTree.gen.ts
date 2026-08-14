@@ -18,6 +18,7 @@ import { Route as LegacyRouteImport } from './routes/legacy'
 import { Route as MentorRouteImport } from './routes/mentor'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as ProtocolRouteImport } from './routes/protocol'
+import { Route as SettingsRouteImport } from './routes/settings'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -64,6 +65,11 @@ const ProtocolRoute = ProtocolRouteImport.update({
   path: '/protocol',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/mentor': typeof MentorRoute
   '/onboarding': typeof OnboardingRoute
   '/protocol': typeof ProtocolRoute
+  '/settings': typeof SettingsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByTo {
   '/mentor': typeof MentorRoute
   '/onboarding': typeof OnboardingRoute
   '/protocol': typeof ProtocolRoute
+  '/settings': typeof SettingsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -98,6 +106,7 @@ export interface FileRoutesById {
   '/mentor': typeof MentorRoute
   '/onboarding': typeof OnboardingRoute
   '/protocol': typeof ProtocolRoute
+  '/settings': typeof SettingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -111,6 +120,7 @@ export interface FileRouteTypes {
     | '/mentor'
     | '/onboarding'
     | '/protocol'
+    | '/settings'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -122,6 +132,7 @@ export interface FileRouteTypes {
     | '/mentor'
     | '/onboarding'
     | '/protocol'
+    | '/settings'
   id:
     | '__root__'
     | '/'
@@ -133,6 +144,7 @@ export interface FileRouteTypes {
     | '/mentor'
     | '/onboarding'
     | '/protocol'
+    | '/settings'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -145,6 +157,7 @@ export interface RootRouteChildren {
   MentorRoute: typeof MentorRoute
   OnboardingRoute: typeof OnboardingRoute
   ProtocolRoute: typeof ProtocolRoute
+  SettingsRoute: typeof SettingsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -212,6 +225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtocolRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -225,6 +245,7 @@ const rootRouteChildren: RootRouteChildren = {
   MentorRoute: MentorRoute,
   OnboardingRoute: OnboardingRoute,
   ProtocolRoute: ProtocolRoute,
+  SettingsRoute: SettingsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
