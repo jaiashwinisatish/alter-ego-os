@@ -14,7 +14,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { layers } from "@/lib/mock-data";
-import heroImage from "@/assets/hero-protocol.jpg";
+import { Hero } from "@/components/hero/hero";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -89,60 +89,7 @@ function Landing() {
         </div>
       </header>
 
-      <section className="relative overflow-hidden">
-        <div className="hairline-grid pointer-events-none absolute inset-0 opacity-60" />
-        <div className="relative mx-auto max-w-6xl px-5 pb-16 pt-20 sm:px-8 sm:pt-28">
-          <div className="rise-in mx-auto max-w-3xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-xs font-medium text-muted-foreground shadow-soft">
-              <span className="size-1.5 rounded-full bg-accent" />
-              Personal transformation, engineered
-            </span>
-            <h1 className="text-display mt-7 text-[2.6rem] leading-[1.03] sm:text-6xl lg:text-7xl">
-              Become the person you
-              <br className="hidden sm:block" /> were meant to become.
-            </h1>
-            <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Alter Ego OS turns who you want to be into an operating system: a seven-layer
-              protocol, a daily practice, and an AI mentor that recalibrates it as you change.
-            </p>
-            <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Button size="lg" asChild className="w-full sm:w-auto">
-                <Link to="/onboarding">
-                  Build My Alter Ego
-                  <ArrowRight className="size-4" />
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild className="w-full sm:w-auto">
-                <Link to="/dashboard">See a live protocol</Link>
-              </Button>
-            </div>
-            <p className="mt-4 text-xs text-muted-foreground">
-              10-minute interview · Protocol generated instantly
-            </p>
-          </div>
-
-          <div className="rise-in mt-16 overflow-hidden rounded-3xl border border-border bg-card shadow-lift">
-            <img
-              src={heroImage}
-              alt="The Alter Ego OS seven-layer transformation protocol visualised as concentric architectural rings"
-              className="h-[280px] w-full object-cover sm:h-[440px]"
-              loading="eager"
-            />
-            <div className="grid gap-px border-t border-border bg-border sm:grid-cols-3">
-              {[
-                ["7 layers", "From identity down to daily practice"],
-                ["90-day sprints", "Long horizons, short feedback loops"],
-                ["Always-on mentor", "Context-aware, never generic"],
-              ].map(([k, v]) => (
-                <div key={k} className="bg-card px-6 py-5">
-                  <p className="font-display text-xl">{k}</p>
-                  <p className="mt-1 text-xs text-muted-foreground">{v}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <Hero />
 
       <section id="system" className="border-t border-border bg-surface py-20 sm:py-28">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
