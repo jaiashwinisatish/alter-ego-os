@@ -271,9 +271,9 @@ function Particles({
       base[i * 3] = Math.cos(theta) * r;
       base[i * 3 + 1] = y;
       base[i * 3 + 2] = Math.sin(theta) * r * 0.7;
-      positions[i * 3] = base[i * 3];
-      positions[i * 3 + 1] = base[i * 3 + 1];
-      positions[i * 3 + 2] = base[i * 3 + 2];
+      positions[i * 3] = base[i * 3]!;
+      positions[i * 3 + 1] = base[i * 3 + 1]!;
+      positions[i * 3 + 2] = base[i * 3 + 2]!;
     }
     return { positions, base, velocities };
   }, [count]);
@@ -286,40 +286,47 @@ function Particles({
     (p.material as THREE.PointsMaterial).opacity = appear * 0.55;
     if (reduced) return;
 
-    const arr = (p.geometry.attributes.position as THREE.BufferAttribute).array as Float32Array;
+    const arr = (p.geometry.attributes['position'] as THREE.BufferAttribute).array as Float32Array;
     const c = cursor.current;
     const dt = Math.min(delta, 0.05);
 
     for (let i = 0; i < count; i++) {
       const ix = i * 3;
+      const px = arr[ix]!;
+      const py = arr[ix + 1]!;
+      const pz = arr[ix + 2]!;
       // drift back to the orbital base position
-      let tx = base[ix] + Math.sin(t * 0.25 + i) * 0.12;
-      let ty = base[ix + 1] + Math.cos(t * 0.3 + i * 0.5) * 0.14;
-      let tz = base[ix + 2] + Math.cos(t * 0.22 + i) * 0.12;
+      const tx = base[ix]! + Math.sin(t * 0.25 + i) * 0.12;
+      const ty = base[ix + 1]! + Math.cos(t * 0.3 + i * 0.5) * 0.14;
+      const tz = base[ix + 2]! + Math.cos(t * 0.22 + i) * 0.12;
+
+      let vx = velocities[ix]!;
+      let vy = velocities[ix + 1]!;
+      let vz = velocities[ix + 2]!;
 
       if (c) {
-        const dx = c.x - arr[ix];
-        const dy = c.y - arr[ix + 1];
-        const dz = c.z - arr[ix + 2];
+        const dx = c.x - px;
+        const dy = c.y - py;
+        const dz = c.z - pz;
         const d2 = dx * dx + dy * dy + dz * dz;
         if (d2 < 9) {
           const f = (1 - d2 / 9) * 3.2;
-          velocities[ix] += dx * f * dt;
-          velocities[ix + 1] += dy * f * dt;
-          velocities[ix + 2] += dz * f * dt;
+          vx += dx * f * dt;
+          vy += dy * f * dt;
+          vz += dz * f * dt;
         }
       }
-      velocities[ix] += (tx - arr[ix]) * 1.4 * dt;
-      velocities[ix + 1] += (ty - arr[ix + 1]) * 1.4 * dt;
-      velocities[ix + 2] += (tz - arr[ix + 2]) * 1.4 * dt;
-      velocities[ix] *= 0.92;
-      velocities[ix + 1] *= 0.92;
-      velocities[ix + 2] *= 0.92;
-      arr[ix] += velocities[ix];
-      arr[ix + 1] += velocities[ix + 1];
-      arr[ix + 2] += velocities[ix + 2];
+      vx = (vx + (tx - px) * 1.4 * dt) * 0.92;
+      vy = (vy + (ty - py) * 1.4 * dt) * 0.92;
+      vz = (vz + (tz - pz) * 1.4 * dt) * 0.92;
+      velocities[ix] = vx;
+      velocities[ix + 1] = vy;
+      velocities[ix + 2] = vz;
+      arr[ix] = px + vx;
+      arr[ix + 1] = py + vy;
+      arr[ix + 2] = pz + vz;
     }
-    (p.geometry.attributes.position as THREE.BufferAttribute).needsUpdate = true;
+    (p.geometry.attributes['position'] as THREE.BufferAttribute).needsUpdate = true;
     p.rotation.y = t * 0.012;
   });
 
@@ -435,7 +442,7 @@ function Universe({
           index={i}
           cursor={cursor}
           reduced={reduced}
-          onPos={(idx, v) => positions[idx].copy(v)}
+          onPos={(idx, v) => positions[idx]?.copy(v)}
         />
       ))}
       <Core engagement={engagement} reduced={reduced} />
